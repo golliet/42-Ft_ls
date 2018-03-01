@@ -6,7 +6,7 @@
 /*   By: golliet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 11:16:34 by golliet           #+#    #+#             */
-/*   Updated: 2018/01/15 16:43:57 by golliet          ###   ########.fr       */
+/*   Updated: 2018/03/01 15:42:55 by golliet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ void			ft_ls(t_list *list, t_param *pa, struct stat buf, t_flag flag)
 	{
 		if (ft_buflstat(flag, pa->str, &buf) == 0)
 			break ;
-		if (S_ISLNK(buf.st_mode))
+		if (S_ISLNK(buf.st_mode) || !S_ISDIR(buf.st_mode))
 			ft_lnklist(list, &flag, pa->str);
-		else if (!S_ISDIR(buf.st_mode))
-			ft_putendl(pa->str);
 		else
 		{
 			if (buf.st_mode & S_IRUSR)
